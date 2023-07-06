@@ -1,6 +1,7 @@
 import {Inter} from 'next/font/google'
 import fs from 'fs/promises';
 import path from "path";
+import Link from "next/link";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -13,7 +14,13 @@ export default function Home({products}: { products: Array<Product> }) {
   return (
     <main className={inter.className}>
       <ul>
-        {products.map((product: Product) => <li key={product.id}>{product.title}</li>)}
+        {products.map((product: Product) => (
+            <li key={product.id}>
+              <Link href={`/${product.id}`}>
+                {product.title}
+              </Link>
+            </li>
+        ))}
       </ul>
     </main>
   )
