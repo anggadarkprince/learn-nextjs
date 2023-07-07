@@ -33,6 +33,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     const product: Product | undefined = data.products.find((product: Product) => product.id === productId);
 
+    console.log('product', product);
+
     if (!product) {
         return {
             notFound: true
@@ -50,6 +52,9 @@ export async function getStaticPaths() {
     const data = await getData();
     const ids = data.products.map(product => product.id);
     const pathWithParams = ids.map(id => ({params: {pid: id}}));
+
+    console.log('products', pathWithParams);
+
     return {
         paths: pathWithParams,
         fallback: true,

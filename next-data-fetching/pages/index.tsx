@@ -16,7 +16,7 @@ export default function Home({products}: { products: Array<Product> }) {
       <ul>
         {products.map((product: Product) => (
             <li key={product.id}>
-              <Link href={`/${product.id}`}>
+              <Link href={`/products/${product.id}`}>
                 {product.title}
               </Link>
             </li>
