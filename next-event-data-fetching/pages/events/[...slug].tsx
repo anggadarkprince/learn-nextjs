@@ -9,6 +9,7 @@ import ResultsTitle from '../../components/events/results-title';
 import Button from '../../components/ui/button';
 import ErrorAlert from '../../components/ui/error-alert';
 import {GetServerSideProps} from "next";
+import Head from "next/head";
 
 function FilteredEventsPage(props: { noResult?: boolean, events: Event[], date: { year: number, month: number } }) {
   const router = useRouter();
@@ -34,18 +35,39 @@ function FilteredEventsPage(props: { noResult?: boolean, events: Event[], date: 
     }
   }, [data]);
 
+  let pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta name="description" content="A list of filtered events"/>
+    </Head>
+  );
+
   if (!loadedEvents) {
-    return <p className='center'>Loading...</p>;
+    return (
+      <Fragment>
+        {pageHeadData}
+        <p className='center'>Loading...</p>
+      </Fragment>
+    );
   }
+
   const filteredYear = filterData[0];
   const filteredMonth = filterData[1];
 
   const numYear = +filteredYear;
   const numMonth = +filteredMonth;
 
+  pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta name="description" content={`All events for ${numMonth} / ${numYear}`}/>
+    </Head>
+  );
+
   if (isNaN(numYear) || isNaN(numMonth) || numYear > 2030 || numYear < 2021 || numMonth < 1 || numMonth > 12 || error) {
     return (
       <Fragment>
+        {pageHeadData}
         <ErrorAlert>
           <p>Invalid filter. Please adjust your values!</p>
         </ErrorAlert>
@@ -64,6 +86,7 @@ function FilteredEventsPage(props: { noResult?: boolean, events: Event[], date: 
   if (filteredEvents.length == 0) {
     return (
       <Fragment>
+        {pageHeadData}
         <ErrorAlert>
           <p>No result found!</p>
         </ErrorAlert>
@@ -91,6 +114,7 @@ function FilteredEventsPage(props: { noResult?: boolean, events: Event[], date: 
 
   return (
     <Fragment>
+      {pageHeadData}
       <ResultsTitle date={date}/>
       <EventList items={filteredEvents}/>
     </Fragment>

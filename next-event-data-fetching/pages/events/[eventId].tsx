@@ -8,6 +8,7 @@ import EventContent from "@/components/event-detail/event-content";
 import {GetStaticProps} from "next";
 import {getFeaturedEvents} from "@/helpers/api-util";
 import {useRouter} from "next/router";
+import Head from "next/head";
 
 function EventDetailPage(props: {event: Event}) {
     const event = props.event;
@@ -23,6 +24,10 @@ function EventDetailPage(props: {event: Event}) {
 
     return (
         <Fragment>
+            <Head>
+                <title>{event.title}</title>
+                <meta name="description" content="Find a lot of great events that allow to envolve"/>
+            </Head>
             <EventSummary title={event.title} />
             <EventLogistics
                 date={event.date}
