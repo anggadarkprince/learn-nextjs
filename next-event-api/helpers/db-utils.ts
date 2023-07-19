@@ -1,7 +1,7 @@
 import {MongoClient, OptionalId, Sort} from "mongodb";
 
 export async function connectDatabase() {
-  const url = 'mongodb+srv://angga:anggaari@express-shop.tswha.mongodb.net/?retryWrites=true&w=majority';
+  const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?retryWrites=true&w=majority`;
   return new MongoClient(url);
 }
 
