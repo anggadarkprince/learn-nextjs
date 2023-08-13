@@ -10,10 +10,10 @@ function PostPage(props: {post: Post}) {
   return (
     <Fragment>
       <Head>
-        <title>{props.post.title}</title>
-        <meta name="description" content={props.post.excerpt}/>
+        <title>{props.post?.title}</title>
+        <meta name="description" content={props.post?.excerpt}/>
       </Head>
-      <PostContent post={props.post} />
+      {props.post && <PostContent post={props.post} />}
     </Fragment>
   )
 }
